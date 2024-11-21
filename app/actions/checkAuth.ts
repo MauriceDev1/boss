@@ -3,7 +3,8 @@ import { createSessionClient } from '@/config/appwrite';
 import { cookies } from 'next/headers';
 
 async function checkAuth() {
-  const sessionCookie = cookies().get('appwrite-session');
+  const cookiesData = await cookies(); // Await the cookies promise
+  const sessionCookie = cookiesData.get('appwrite-session'); // Retrieve cookie by name
 
   if (!sessionCookie) {
     return {
@@ -24,6 +25,7 @@ async function checkAuth() {
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       isAuthenticated: false,
     };

@@ -8,7 +8,7 @@ const Hero = () => {
         <div className='w-full flex flex-wrap h-full md:flex-col'>
             <div className='w-full flex md:w-1/2 h-full md:pr-6'>
                 <div className='m-auto md:pl-6'>
-                    <h1 className='text-5xl'>Hello world</h1>
+                    <h1 className='text-5xl'>Meet A Companion</h1>
                     <p className='py-8 text-lg'>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quis molestiae qui rem accusamus nulla dicta, soluta inventore error sed. Repudiandae voluptates provident nostrum, odit non veritatis obcaecati voluptate voluptatem nesciunt sit? Voluptatem, sint alias consequatur esse asperiores adipisci recusandae?
 

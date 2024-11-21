@@ -8,6 +8,7 @@ import * as z from 'zod'
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import createUser from '@/app/actions/createUser'
 // import { Toaster } from "@/components/ui/toaster"
 
 const formSchema = z.object({
@@ -23,15 +24,7 @@ const formSchema = z.object({
   phoneNumber: z.string().regex(/^\+?[1-9]\d{1,14}$/, {
     message: "Please enter a valid phone number.",
   }),
-})
-
-async function onSubmit(values: z.infer<typeof formSchema>) {
-  // This is where you would typically call your API or Server Action
-  console.log(values);
-  // For demonstration, we'll just simulate an API call
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  return { success: true }
-}
+});
 
 export default function SignupForm() {
   const router = useRouter()
@@ -50,21 +43,22 @@ export default function SignupForm() {
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     try {
-      const result = await onSubmit(values)
+      // Call the server action to create the user
+      const result = await createUser({
+        name: values.username,
+        email: values.email,
+        password: values.password,
+        cellphone: values.phoneNumber,
+        confirmPassword: values.password, // Assuming you're not using a separate confirm password field
+      })
       if (result.success) {
-        // Toaster({
-        //   title: "Account created successfully!",
-        //   description: "You can now log in with your new account.",
-        // })
-        router.push('/login') // Redirect to login page
+        router.push('/login') // Redirect to login page after successful registration
+      } else {
+        // Handle error, show an appropriate message
+        console.error(result.error)
       }
     } catch (error) {
-      console.log(error)
-      // Toaster({
-      //   title: "Error",
-      //   description: "There was a problem creating your account.",
-      //   variant: "destructive",
-      // })
+      console.log('Error:', error)
     } finally {
       setIsLoading(false)
     }

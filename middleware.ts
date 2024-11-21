@@ -14,5 +14,5 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ['/female', '/rooms/add', '/rooms/my'], // Routes where this middleware applies
+  matcher: ['/profile', '/bookings', '/chat', '/history'], // Routes where this middleware applies
 };
